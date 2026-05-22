@@ -5,3 +5,5 @@ dist/
 .DS_Store
 tsconfig.tsbuildinfo
 .workbuddy/
+server/node_modules/
+server/.env

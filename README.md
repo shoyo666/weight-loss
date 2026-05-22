@@ -1,48 +1,60 @@
 # SlimFit — 个人减脂管理系统
 
-一个移动端优先的个人减脂管理 Web 应用，支持 AI 拍照识别食物热量、AI 减脂助手聊天、自定义训练计划、体重追踪等功能。
+移动端优先的个人减脂管理 Web 应用。AI 拍照识别食物热量、AI 减脂助手、自定义训练、体重追踪。
 
-## 功能
+## 技术架构
 
-- 📸 **AI 拍照识别食物** — 基于通义千问 Qwen VL Plus，拍照自动分析食物热量
-- 🤖 **AI 减脂助手** — 浮动 emoji 宠物，支持对话交互，回答减脂相关问题
-- 📊 **饮食记录** — 早餐/午餐/晚餐/加餐分类记录，饮水追踪
-- 🏋️ **训练计划** — AI 生成训练方案 + 自定义训练项目 + 分组勾画
-- ⚖️ **体重追踪** — 体重趋势图，BMI 计算
-- ✅ **每日打卡** — 热力图，连续打卡统计
+```
+用户浏览器 ──→ Vercel (前端静态站点)
+                  │
+                  └──→ Render (后端 API 代理) ──→ 通义千问 API
+```
 
-## 快速开始
+- **前端**：React 18 + TypeScript + Vite + Tailwind CSS（部署在 Vercel）
+- **后端**：Express（部署在 Render），代理通义千问 API 调用
+- **API Key**：仅存在后端 `.env`，前端完全不接触
+
+## 本地开发
 
 ```bash
 # 1. 安装依赖
 npm install
+cd server && npm install && cd ..
 
-# 2. 配置 API Key（首次必做）
-cp .env.example .env
-# 编辑 .env，填入你的通义千问 API Key
-# 免费申请：https://dashscope.console.aliyun.com/apiKey
+# 2. 配置后端 Key
+cp server/.env.example server/.env
+# 编辑 server/.env，填入 QWEN_API_KEY
 
-# 3. 启动开发服务器
+# 3. 启动后端（端口 3001）
+cd server && npm run dev &
+
+# 4. 启动前端（端口 5173）
 npm run dev
 ```
 
-## 配置 API Key
+## 部署上线
 
-本项目使用通义千问 API 提供 AI 功能：
+### 后端 → Render
 
-1. 访问 [阿里云 DashScope 控制台](https://dashscope.console.aliyun.com/apiKey) 免费申请 API Key
-2. 复制 `.env.example` 为 `.env`
-3. 将 `VITE_QWEN_API_KEY=sk-your-api-key-here` 替换为你的真实 Key
+1. 注册 [Render](https://render.com)
+2. New Web Service → 连接 GitHub 仓库
+3. 设置：
+   - **Root Directory**: `server`
+   - **Build Command**: `npm install`
+   - **Start Command**: `node index.js`
+   - **Environment Variable**: `QWEN_API_KEY=sk-xxx`
+4. 部署后会得到 URL，如 `https://slimfit-api.onrender.com`
 
-> ⚠️ `.env` 文件已在 `.gitignore` 中，不会被上传到公开仓库。
+### 前端 → Vercel
 
-## 技术栈
-
-- React 18 + TypeScript
-- Vite 5
-- Tailwind CSS 3
-- Framer Motion
-- localStorage 本地持久化
+1. 注册 [Vercel](https://vercel.com)
+2. Import GitHub 仓库
+3. 设置：
+   - **Framework**: Vite
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+   - **Environment Variable**: `VITE_API_BASE=https://slimfit-api.onrender.com`
+4. 部署后得到公开链接如 `https://slimfit.vercel.app`
 
 ## License
 
