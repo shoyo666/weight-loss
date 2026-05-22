@@ -19,6 +19,9 @@ const activityOptions = [
 export function ProfilePage() {
   const { state, dispatch } = useStore();
   const { profile } = state;
+
+  if (!profile) return null;
+
   const [editingField, setEditingField] = useState<string | null>(null);
   const [tempValue, setTempValue] = useState('');
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);

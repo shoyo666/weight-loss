@@ -14,6 +14,9 @@ import clsx from 'clsx';
 export function BodyPage() {
   const { state, dispatch } = useStore();
   const { profile, weightHistory } = state;
+
+  if (!profile) return null;
+
   const [showWeightModal, setShowWeightModal] = useState(false);
   const [newWeight, setNewWeight] = useState(profile.currentWeight.toString());
   const [showEditGoal, setShowEditGoal] = useState(false);

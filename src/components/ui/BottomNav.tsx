@@ -18,7 +18,7 @@ type TabKey = 'dashboard' | 'diet' | 'body' | 'plan' | 'profile';
 
 const tabs: Array<{
   key: TabKey;
-  icon: React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>;
+  icon: React.ComponentType<any>;
   label: string;
   activeColor: string;
   activeBg: string;

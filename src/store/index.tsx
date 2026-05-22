@@ -540,7 +540,7 @@ const StoreContext = createContext<StoreContextValue | null>(null);
  * - 监听状态变化并自动保存当前用户数据
  */
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(reducer, undefined, createInitialState);
+  const [state, dispatch] = useReducer(reducer, createInitialState() as unknown as AppState);
 
   // 监听状态变化，自动保存当前用户数据
   useEffect(() => {

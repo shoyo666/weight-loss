@@ -56,15 +56,15 @@ export const defaultDietHistory: DietRecord[] = [
     meals: [
       {
         id: '1', name: '燕麦粥', calories: 280, protein: 10, carbs: 48, fat: 5,
-        amount: 200, mealType: 'breakfast', timestamp: new Date().toISOString(),
+        amount: 200, mealType: 'breakfast', timestamp: new Date().toISOString(), date: fmt(today),
       },
       {
         id: '2', name: '水煮鸡胸肉', calories: 165, protein: 31, carbs: 0, fat: 3.6,
-        amount: 150, mealType: 'lunch', timestamp: new Date().toISOString(),
+        amount: 150, mealType: 'lunch', timestamp: new Date().toISOString(), date: fmt(today),
       },
       {
         id: '3', name: '西兰花炒蛋', calories: 190, protein: 14, carbs: 8, fat: 11,
-        amount: 200, mealType: 'lunch', timestamp: new Date().toISOString(),
+        amount: 200, mealType: 'lunch', timestamp: new Date().toISOString(), date: fmt(today),
       },
     ],
     totalCalories: 635,
