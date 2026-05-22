@@ -22,6 +22,7 @@ import {
   X, Send, ChevronDown, Sparkles,
 } from 'lucide-react';
 import clsx from 'clsx';
+import { AI_API_KEY } from '../../services/foodRecognition';
 
 /* ==================== 类型定义 ==================== */
 
@@ -692,17 +693,22 @@ async function callAI(
     { role: 'user', content: userQuery },
   ];
 
-  const API_BASE = import.meta.env.VITE_API_BASE || '';
-  const response = await fetch(`${API_BASE}/api/chat`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ messages }),
-  });
+  const response = await fetch(
+    'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions',
+    {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${AI_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ model: 'qwen-plus', messages, max_tokens: 400 }),
+    }
+  );
 
   if (!response.ok) {
     throw new Error(`API error: ${response.status}`);
   }
 
   const data = await response.json();
-  return data.reply || '抱歉，我暂时无法回答。😊';
+  return data.choices?.[0]?.message?.content || '抱歉，我暂时无法回答，请换个问题试试。😊';
 }
