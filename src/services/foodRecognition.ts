@@ -25,7 +25,7 @@ export interface RecognizedFood {
 /* ==================== API Key ==================== */
 
 /** 内置通义千问 API Key */
-const BUILTIN_API_KEY = 'sk-5a7074cc975c491c9e2b25dacb493cbc';
+const BUILTIN_API_KEY = '123';
 
 function getApiKey(): string {
   return BUILTIN_API_KEY;
